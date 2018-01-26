@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/query/1.12.4/query.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
+</head>
+<style>
+    body{
+        background-color: antiquewhite;
+    }
+    .container{
+        margin-top: 100px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="text-align: center; color:blue">Simplify your links</h1>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/new" method="POST">
+                  <div class="input-group input-group-lg">
+                      <input type="text" class="form-control" name="urlToShorten" placeholder="Enter the link here&hellip;">
+                      <span class="input-group-btn">
+                          <button class="btn btn-lg btn-primary btn-block">Go</button>
+                      </span>
+                   </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 style="text-align:center; color:brown;">
+                    Use my URL shortener to create a short link making it easy to remember.
+                </h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
