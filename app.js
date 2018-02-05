@@ -13,17 +13,15 @@ app.set('view engine','ejs');
 
 mongoose.connect('mongodb://localhost/shortUrl');
 
-app.get('/new',function(req,res){
+app.get('/',function(req,res){
     res.render('home');
 })
 
 app.post('/new',function(req,res,next){
     var urlToShorten=req.params.urlToShorten;
-    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-    var regex=expression;
+    var regex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     if(regex.test(urlToShorten)===true){
        var short=Math.floor(Math.random()*100000).toString();
-       
        var data=new shortUrl({
            originalUrl: urlToShorten,
            shorterUrl: short
@@ -35,7 +33,7 @@ app.post('/new',function(req,res,next){
            }
        });
 
-     res.render('short',{value:data.shorterUrl});
+     res.render('short',{value:"http://localhost:1000/"+data.shorterUrl});
     }
     var data=new shortUrl({
         originalUrl: urlToShorten,
@@ -60,6 +58,6 @@ app.get('/:urlToForward',function(req,res,next){
     });
 })
 
-app.listen(process.env.PORT || 1000,function(){
+app.listen(1000,function(){
     console.log('Server started..');
 });
