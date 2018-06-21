@@ -7,6 +7,7 @@ var encoder=require('./encoder/encode');
 var app=express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}))
 app.use(cors());
 app.use(express.static(__dirname+'/public'));
 
@@ -22,24 +23,34 @@ app.get('/',function(req,res){
 
 app.post('/shorten',function(req,res){
     var originalUrl=req.body.url;
-
+ 
     var regex=/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/
     if(!regex.test(originalUrl)) { 
         console.log("ERROR !!!!") 
       res.render('error');
-    }else{
-        var shortenURL=encoder(originalUrl);
+    }
+    
+   
+    Url.findOne({originalUrl:originalUrl},function(err,data){
+        if(err){
+            console.log(err);
+        }
+        if(data!=null){
+            res.redirect(data.originalUrl);
+        }
+       else{
+            var shortenURL=encoder(originalUrl);
         var newUrl=new Url({
             originalUrl:originalUrl,
-            shorterUrl:shorterUrl
+            shorterUrl:req.protocol+'://localhost:1000/'+shortenURL
         }).save(function(err){
             if(err){
                 console.log(err);
             }
-            var shortenFullUrl=req.protocol+'://localhost:1000/'+shortenUrl;
+            var shortenFullUrl=req.protocol+'://localhost:1000/'+shortenURL;
             res.render('short',{shortenUrl:shortenFullUrl});
         });
-    }
+    }})
 })
 
 // Find in database and redirect to originalUrl

@@ -3,7 +3,7 @@ var Schema=mongoose.Schema;
 
 var urlSchema=new Schema({
     originalUrl:String,
-    shortUrl:String
+    shorterUrl:String
 }, {timestamp: true});
 
 var Model=mongoose.model('shortUrl',urlSchema);
